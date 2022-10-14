@@ -14,8 +14,6 @@ export class DynamoDBChannelRepo implements IChannelRepo {
   }
 
   async GetAll(): Promise<Channel> {
-    this.client.send();
-
     throw new Error('Method not implemented.')
   }
 
