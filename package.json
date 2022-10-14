@@ -11,6 +11,7 @@
     "postbuild": "cd dist && zip -r index.zip index.js*"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.188.0"
+    "@aws-sdk/client-dynamodb": "^3.188.0",
+    "@aws-sdk/lib-dynamodb": "^3.188.0"
   }
 }
