@@ -1,4 +1,4 @@
-export interface Channal {
+export interface Channel {
   name: string
   items: Item[]
 }
