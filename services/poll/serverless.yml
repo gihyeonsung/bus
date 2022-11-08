@@ -1,0 +1,16 @@
+service: poll
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  runtime: nodejs14.x
+
+functions:
+  poll:
+    handler: poll.poll
+    events:
+      - schedule: rate(1 minute)
+
+plugins:
+  - serverless-plugin-typescript
