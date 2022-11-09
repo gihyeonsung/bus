@@ -36,30 +36,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.poll = void 0;
-var uuid = require("uuid");
+exports.list = void 0;
 var client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 var lib_dynamodb_1 = require("@aws-sdk/lib-dynamodb");
 var dbClient = new client_dynamodb_1.DynamoDBClient({ region: process.env.REGION });
 var db = lib_dynamodb_1.DynamoDBDocument.from(dbClient);
-var poll = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var item;
+var list = function (event) { return __awaiter(void 0, void 0, void 0, function () {
+    var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                item = {
-                    id: uuid.v1(),
-                    createdAt: new Date().getTime() / 1000,
-                };
-                return [4 /*yield*/, db.put({ TableName: process.env.DYNAMODB_TABLE, Item: item })];
+            case 0: return [4 /*yield*/, db.scan({ TableName: process.env.DYNAMODB_TABLE })];
             case 1:
-                _a.sent();
+                data = _a.sent();
                 return [2 /*return*/, {
-                        statusCode: 201,
-                        body: JSON.stringify(item),
+                        statusCode: 200,
+                        body: JSON.stringify(data.Items),
                     }];
         }
     });
 }); };
-exports.poll = poll;
-//# sourceMappingURL=poll.js.map
+exports.list = list;
+//# sourceMappingURL=list.js.map
