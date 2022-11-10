@@ -27,8 +27,15 @@ functions:
     handler: list.list
     events:
       - httpApi:
-          path: /items
+          path: /channels
           method: get
+
+  subscribe:
+    handler: subscribe.subscribe
+    events:
+      - httpApi:
+          path: /channels
+          method: post
 
   poll:
     handler: poll.poll
