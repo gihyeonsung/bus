@@ -1,5 +1,0 @@
-{
-    "name": "Example RSS",
-    "crawler": "rss",
-    "crawlerParam": "http://example.com/rss.xml"
-}
