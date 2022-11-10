@@ -3,9 +3,8 @@ export interface IChannel {
   createdAt: number;
   updatedAt: number;
   name: string;
-  indexLast: number;
   crawler: string;
-  crawlerParam: string;
+  crawlerConfig: string;
   items: IChannelItem[];
 }
 
@@ -15,6 +14,7 @@ export interface IChannelItem {
   updatedAt: number;
   publishedAt: number;
   name: string;
-  index: number;
-  read: boolean;
+  url: string;
 }
+
+export type ICrawler = (updatedAt: number, config: string) => Promise<IChannelItem[]>

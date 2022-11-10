@@ -21,9 +21,8 @@ export const subscribe = async (
     createdAt: new Date().getTime(),
     updatedAt: new Date().getTime(),
     name: req.name,
-    indexLast: 0,
     crawler: req.crawler,
-    crawlerParam: req.crawlerParam,
+    crawlerConfig: req.crawlerConfig,
     items: [],
   };
 
