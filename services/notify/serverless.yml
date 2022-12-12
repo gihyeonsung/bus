@@ -1,0 +1,37 @@
+org: cce844ca
+app: poller
+service: notify
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: ap-northeast-1
+  environment:
+    REGION: ${aws:region}
+    SQS_QUEUE: ${self:service}-${sls:stage}
+
+functions:
+  notify:
+    handler: notify.notify
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - ItemsQueue
+              - Arn
+
+plugins:
+  - serverless-plugin-typescript
+
+resources:
+  Resources:
+    ItemsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.environment.SQS_QUEUE}
+
+  Outputs:
+    sqsQueue:
+      Value: !Ref ItemsQueue
