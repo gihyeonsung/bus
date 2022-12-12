@@ -1,0 +1,8 @@
+services:
+  poll:
+    path: services/poll
+    params:
+      sqsQueue: ${notify.sqsQueue}
+
+  notify:
+    path: services/notify

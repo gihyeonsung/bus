@@ -11,6 +11,7 @@ provider:
   environment:
     REGION: ${aws:region}
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
+    SQS_QUEUE: ${param:sqsQueue}
   iam:
     role:
       statements:
