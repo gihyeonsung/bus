@@ -9,6 +9,7 @@ provider:
   stage: dev
   region: ap-northeast-1
   environment:
+    ACCOUNT_ID: ${aws:accountId}
     REGION: ${aws:region}
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
     SQS_QUEUE: ${param:sqsQueue}

@@ -1,0 +1,5 @@
+{
+    "name": "heartbeat default",
+    "crawler": "heartbeat",
+    "crawlerConfig": ""
+}
