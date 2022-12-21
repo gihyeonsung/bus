@@ -1,13 +1,20 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from "aws-lambda";
+
 import { IChannel } from "./interface";
-import { crawl } from "./youtube/crawler";
+import * as heartbeat from "./heartbeat";
+import * as youtube from "./youtube";
 
 const dbClient = new DynamoDBClient({ region: process.env.REGION });
 const db = DynamoDBDocument.from(dbClient);
 
-const crawlers = new Map([['youtube', crawl]]);
+const crawlers = new Map(
+  [
+    ['heartbeat', heartbeat.crawl],
+    ['youtube', youtube.crawl],
+  ]
+);
 
 const pollChannel = async (channel: IChannel): Promise<void> => {
   if (!crawlers.has(channel.crawler)) {
