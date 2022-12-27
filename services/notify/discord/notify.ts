@@ -1,15 +1,12 @@
 import { INotify } from '../interface'
 import { Client, GatewayIntentBits } from 'discord.js'
 
-const BOT_TOKEN = '';
-const CHANNEL_ID = ''
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
 export const notify: INotify = async (message: string): Promise<void> => {
-  await client.login(BOT_TOKEN);
+  await client.login(process.env.NOTIFY_DISCORD_BOT_TOKEN);
 
-  const channel = client.channels.cache.get(CHANNEL_ID);
+  const channel = client.channels.cache.get(process.env.NOTIFY_DISCORD_CHANNEL_ID!);
   if (!channel) {
     return
   }
