@@ -3,6 +3,7 @@ services:
     path: services/poll
     params:
       sqsQueue: ${notify.sqsQueue}
+      sqsQueueName: ${notify.sqsQueueName}
 
   notify:
     path: services/notify

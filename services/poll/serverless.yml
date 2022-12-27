@@ -13,6 +13,7 @@ provider:
     REGION: ${aws:region}
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
     SQS_QUEUE: ${param:sqsQueue}
+    SQS_QUEUE_NAME: ${param:sqsQueueName}
   iam:
     role:
       statements:
@@ -25,6 +26,10 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+        - Effect: Allow
+          Action:
+            - "sqs:SendMessage"
+          Resource: "arn:aws:sqs:${aws:region}:${aws:accountId}:${self:provider.environment.SQS_QUEUE_NAME}"
 
 functions:
   list:
