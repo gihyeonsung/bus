@@ -19,7 +19,7 @@ const crawlers = new Map(
 );
 
 const publishItem = async (item: IChannelItem): Promise<void> => {
-  const queueUrl = `https://sqs.${process.env.REGION}.amazonaws.com/${process.env.ACCOUNT_ID}/${process.env.SQS_QUEUE}`
+  const queueUrl = process.env.SQS_QUEUE
   const messageBody = `${item.publishedAt} ${item.name} ${item.url}`
   const message = new SendMessageCommand({ QueueUrl: queueUrl, MessageBody: messageBody });
   await sqsClient.send(message)
@@ -33,18 +33,6 @@ const pollChannel = async (channel: IChannel): Promise<void> => {
 
   const items = await crawler(channel.updatedAt, channel.crawlerConfig);
   await Promise.all(items.map(publishItem))
-
-  // if (items.length <= 0) {
-  //   return;
-  // }
-  //
-  // await db.update({
-  //   TableName: process.env.DYNAMODB_TABLE,
-  //   Key: { id: channel.id },
-  //   UpdateExpression: `SET updatedAt = :u, #items = list_append(:newitems, #items)`,
-  //   ExpressionAttributeNames: { '#items': 'items' },
-  //   ExpressionAttributeValues: { ':u': items[0].publishedAt, ':newitems': items }
-  // });
 };
 
 export const poll = async (
