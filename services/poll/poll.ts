@@ -20,7 +20,7 @@ const crawlers = new Map(
 
 const publishItem = async (item: IChannelItem): Promise<void> => {
   const queueUrl = process.env.SQS_QUEUE
-  const messageBody = `${item.publishedAt} ${item.name} ${item.url}`
+  const messageBody = `${(new Date(item.publishedAt)).toISOString()} ${item.name} ${item.url}`
   const message = new SendMessageCommand({ QueueUrl: queueUrl, MessageBody: messageBody });
   await sqsClient.send(message)
 }
