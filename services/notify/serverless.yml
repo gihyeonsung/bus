@@ -11,8 +11,7 @@ provider:
   environment:
     REGION: ${aws:region}
     SQS_QUEUE: ${self:service}-${sls:stage}
-    NOTIFY_DISCORD_BOT_TOKEN: ${env:NOTIFY_DISCORD_BOT_TOKEN}
-    NOTIFY_DISCORD_CHANNEL_ID: ${env:NOTIFY_DISCORD_CHANNEL_ID}
+    NOTIFY_DISCORD_WEBHOOK_URL: ${env:NOTIFY_DISCORD_WEBHOOK_URL}
 
 functions:
   notify:
